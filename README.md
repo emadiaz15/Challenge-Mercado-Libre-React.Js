@@ -44,7 +44,7 @@ Este proyecto es una aplicación web desarrollada con React y TypeScript que con
 ### Prerrequisitos
 
 - Node.js
-- npm o yarn
+- npm
 
 ### Pasos para la Instalación
 
@@ -60,14 +60,10 @@ Este proyecto es una aplicación web desarrollada con React y TypeScript que con
    ```bash
    npm install
    ```
-
-## Scripts Disponibles
-
-En el directorio del proyecto, puedes ejecutar:
-
-### `npm run dev` o `yarn dev`
-
-Inicia el servidor de desarrollo.
+4. Ejecuta:
+   ```bash
+   npm run dev
+   ```
 
 ## Estructura del Proyecto
 
