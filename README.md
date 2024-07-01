@@ -41,7 +41,7 @@ Este proyecto es una aplicación web desarrollada con React y TypeScript que con
 
 ## Instalación
 
-### Prerrequisitos
+### Requisitos
 
 - Node.js
 - npm
