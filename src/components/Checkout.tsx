@@ -1,40 +1,41 @@
-import React from 'react';
-import { useCart } from '../context/CartContext';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'; // Importa React
+import { useCart } from '../context/CartContext'; // Importa el hook useCart desde el contexto del carrito
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom para la navegación
 
-const Checkout: React.FC = () => {
-  const { cartItems, clearCart } = useCart();
-  const navigate = useNavigate();
+const Checkout: React.FC = () => { // Define un componente funcional llamado Checkout
+  const { cartItems, clearCart } = useCart(); // Obtiene cartItems y clearCart del contexto del carrito
+  const navigate = useNavigate(); // Inicializa el hook de navegación
 
-  const handleCheckout = () => {
-    clearCart();
-    navigate('/'); 
-    alert('Compra realizada con éxito');
+  const handleCheckout = () => { // Función que maneja la confirmación de la compra
+    clearCart(); // Limpia el carrito
+    navigate('/'); // Navega a la página principal
+    alert('Compra realizada con éxito'); // Muestra un mensaje de éxito
   };
 
+  // Calcula el subtotal sumando el precio por la cantidad de cada ítem en el carrito
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const vat = subtotal * 0.21; 
-  const total = subtotal + vat;
+  const vat = subtotal * 0.21; // Calcula el IVA (21% del subtotal)
+  const total = subtotal + vat; // Calcula el total sumando el subtotal y el IVA
 
   return (
-    <div className="container mt-4 d-lg-flex">
-      <div className="box-1 bg-light user">
+    <div className="container mt-4 d-lg-flex"> {/* Contenedor principal con clases de Bootstrap */}
+      <div className="box-1 bg-light user"> {/* Caja 1: Resumen de Compra */}
         <h2>Resumen de Compra</h2>
-        <div className="list-group mb-4">
+        <div className="list-group mb-4"> {/* Lista de ítems en el carrito */}
           {cartItems.map((item) => (
-            <div className="list-group-item py-2" key={item.id}>
-              <div className="row align-items-center">
-                <div className="col-md-2">
+            <div className="list-group-item py-2" key={item.id}> {/* Ítem individual del carrito */}
+              <div className="row align-items-center"> {/* Fila con alineación central */}
+                <div className="col-md-2"> {/* Columna para la imagen del ítem */}
                   <img src={item.thumbnail} className="img-fluid" alt={item.title} />
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4"> {/* Columna para el título y precio del ítem */}
                   <h5 className="mb-0">{item.title}</h5>
                   <p className="mb-0">${item.price}</p>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3"> {/* Columna para la cantidad del ítem */}
                   <span className="btn btn-light">{item.quantity}</span>
                 </div>
-                <div className="col-md-3 text-end">
+                <div className="col-md-3 text-end"> {/* Columna para el precio total del ítem */}
                   <p className="mb-0">${item.price * item.quantity}</p>
                 </div>
               </div>
@@ -42,12 +43,12 @@ const Checkout: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="box-2">
+      <div className="box-2"> {/* Caja 2: Detalles de Pago */}
         <div className="box-inner-2">
           <div>
             <p className="fw-bold">Detalles de Pago</p>
             <form>
-              <div className="mb-3">
+              <div className="mb-3"> {/* Campo de correo electrónico */}
                 <p className="dis fw-bold mb-2">Correo Electrónico</p>
                 <input className="form-control" type="email"/>
               </div>
@@ -61,11 +62,11 @@ const Checkout: React.FC = () => {
                     <input type="password" maxLength={3} className="form-control px-0" placeholder="CVV" />
                   </div>
                 </div>
-                <div className="my-3 cardname">
+                <div className="my-3 cardname"> {/* Campo de nombre y apellido */}
                   <p className="dis fw-bold mb-2">Nombre y Apellido</p>
                   <input className="form-control" type="text" />
                 </div>
-                <div className="address">
+                <div className="address"> {/* Campo de dirección */}
                   <p className="dis fw-bold mb-3">Pais</p>
                   <select className="form-select" aria-label="Default select example">
                     <option selected hidden>Argentina</option>
@@ -81,19 +82,19 @@ const Checkout: React.FC = () => {
               </div>
             </form>
             <div className="d-flex flex-column dis">
-              <div className="d-flex align-items-center justify-content-between mb-2">
+              <div className="d-flex align-items-center justify-content-between mb-2"> {/* Subtotal */}
                 <p>Subtotal</p>
                 <p>${subtotal.toFixed(2)}</p>
               </div>
-              <div className="d-flex align-items-center justify-content-between mb-2">
+              <div className="d-flex align-items-center justify-content-between mb-2"> {/* IVA */}
                 <p>VAT<span>(21%)</span></p>
                 <p>${vat.toFixed(2)}</p>
               </div>
-              <div className="d-flex align-items-center justify-content-between mb-2">
+              <div className="d-flex align-items-center justify-content-between mb-2"> {/* Total */}
                 <p className="fw-bold">Total</p>
                 <p className="fw-bold">${total.toFixed(2)}</p>
               </div>
-              <button className="btn btn-primary mt-3" onClick={handleCheckout}>Confirmar Compra</button>
+              <button className="btn btn-primary mt-3" onClick={handleCheckout}>Confirmar Compra</button> {/* Botón de confirmación de compra */}
             </div>
           </div>
         </div>
@@ -102,4 +103,4 @@ const Checkout: React.FC = () => {
   );
 }
 
-export default Checkout;
+export default Checkout; // Exporta el componente Checkout como exportación predeterminada
