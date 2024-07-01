@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getProductDetail } from '../services/api';
 import { useCart } from '../context/CartContext';
 
-interface Product {
+interface ProductDetail {
   id: string;
   title: string;
   price: number;
@@ -13,8 +13,8 @@ interface Product {
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const { setCartItems } = useCart();
+  const [product, setProduct] = useState<ProductDetail | null>(null);
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,8 +25,17 @@ const ProductDetail: React.FC = () => {
 
   if (!product) return <div>Loading...</div>;
 
-  const addToCart = () => {
-    setCartItems((prevItems) => [...prevItems, { ...product, quantity: 1 }]);
+  const handleAddToCart = () => {
+    if (product) {
+      const productToAdd = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: 1,
+        thumbnail: product.pictures[0].url
+      };
+      addToCart(productToAdd);
+    }
   };
 
   return (
@@ -44,7 +53,7 @@ const ProductDetail: React.FC = () => {
           </div>
           <p className="card-text mt-3">{product.description}</p>
           <div className="btn-container">
-            <button className="btn btn-primary me-2" onClick={addToCart}>Comprar</button>
+            <button className="btn btn-primary me-2" onClick={handleAddToCart}>Comprar</button>
             <button className="btn btn-secondary" onClick={() => navigate('/cart')}>Ir al Carrito</button>
           </div>
         </div>
